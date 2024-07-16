@@ -1,0 +1,84 @@
+{%extends "mngmntsystem/homepage.html"%}
+{% load static %}
+{%block header%}
+    <header>
+        <div class="container">
+            <div style="width: 10%;">
+                <img src="{% static 'images/logokpm.png' %}" alt="" class="image-size" style="margin: 8px; background-color:aliceblue;">
+            </div>
+            <div class="head-style" style="width:70%; margin-right:15%;">
+                <h1 class="header-h1">KPMB VEHICLE MANAGEMENT ONLINE SYSTEM</h1>
+            </div>
+
+              <div id="main" style="width:20%;">
+                <div style="display: flex;">
+                  <button class="button-login" style="margin-top:10%; margin-bottom:10%; padding: 7%; margin-right:5%;"><a href="{%url 'logout' %}"> Home</a></button>
+                  <button class="button-login" style="margin-top:10%; margin-bottom:10%; padding: 7%; margin-right:5%;"><a href="{%url 'login' %}"> Login</a></button>
+                </div>
+              </div>
+        </div>  
+    </header>
+{%endblock header%}
+{% block contentbox %}
+<style>
+    .rounded-box {
+        width: 300px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .centerize-box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* 100% of the viewport height */
+    }
+    .submit-button:hover {
+        border-color: black;
+        background-color: white;
+    }
+    .submit-button {
+        border-color: white;
+        background-color: rgb(165, 164, 164);
+        color: rgb(20, 20, 20);
+    }
+</style>
+<body>
+    <div class="centerize-box">
+        <div class="rounded-box">
+            
+            <h1>Register</h1>
+            <div class="">
+                <form method="POST" action="">
+                    {% csrf_token %}
+
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" class="form-input"/>
+
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" class="form-input" />
+
+                    <label for="full_name">Full Name:</label>
+                    <input type="text" name="full_name" id="full_name" class="form-input" />
+
+                    <label for="phoneNum">Phone Number:</label>
+                    <input type="text" name="phoneNum" id="phoneNum" class="form-input" />
+
+                    <label for="role">Role:</label>
+                    <select type="text" name="role" id="role" class="form-input">
+                        <option value="Student">Student</option>
+                        <option value="Lecturer">Lecturer</option>
+                    </select>
+
+                    <center><button type="submit" class="button-login" style="padding: 2%;">Register</button></center>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock contentbox %}
+
+
+    
+    
+</body>

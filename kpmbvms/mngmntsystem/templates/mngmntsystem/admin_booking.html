@@ -1,0 +1,98 @@
+{%extends "mngmntsystem/admin_login.html"%}
+{% load static %}
+{%block header%}
+    <header>
+        <div class="container">
+            <div style="width: 10%;">
+                <img src="{% static 'images/logokpm.png' %}" alt="" class="image-size" style="margin: 10px; background-color:aliceblue;">
+            </div>
+            <div class="head-style" style=" width:80%;">
+                <h1 class="header-h1">KPMB VEHICLE MANAGEMENT ONLINE SYSTEM</h1>
+                <h2>Admin Page</h2>
+            </div>
+            <div style="width: 10%;">
+                <button class="button-login" style="padding: 10%; margin-top:30%;"><a href="{% url 'admin_homepage'%}">Back</a></button>
+            </div>
+    </header>
+{%endblock header%}
+{%block contentbox%}
+    
+  <div class="container-box">
+    <div class="row-box" style="margin-top:10%; justify-content: left; margin:2%;">
+        <div class="invisible-box" style="width:100%;">
+            {%if booking%}
+              <h1>Configure Bookings</h1>
+              <table>
+                <thead>
+                  <tr>
+                    <td>Booking ID</td>
+                    <td>Username</td>
+                    <td>Vehicle ID</td>
+                    <td>Booking Date</td>
+                    <td>Time of Booking</td>
+                    <td>Purpose of Booking</td>
+                    <td>Driver ID</td>
+                    <td>Booking Status</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {%for x in booking%}
+                    <tr>
+                      <td>{{x.bookingID}}</td>
+                      <td>{{x.userName_id}}</td>
+                      <td>{{x.vehicleID_id}}</td>
+                      <td>{{x.bookingDate}}</td>
+                      <td>{{x.bookingTime}}</td>
+                      <td>{{x.purpose}}</td>
+                      <td>{{x.driverID_id}}</td>
+                      <td>{{x.bookingStatus}}</td>
+                    </tr>
+                  {%endfor%}
+                </tbody>
+              </table>
+              <h2>Bookings Approval</h2>
+              <form method="POST" action="">
+                {% csrf_token %}
+                <label for="bookingID">Booking ID:</label>
+                <select type="text" name="bookingid" id="bookingid" class="form-input" required>
+                  <option value="">Choose an option</option>
+                  {%for x in booking%}
+                    <option value="{{x.bookingID}}">{{x.bookingID}}</option>
+                  {% endfor %}
+                </select>
+
+                <label for="bookingstatus">Status Approval:</label>
+                <select type="text" name="bookingstatus" id="bookingstatus" class="form-input" required>
+                  <option value="">Choose an option</option>
+                  <option value="Approved">Approve</option>
+                  <option value="Rejected">Reject</option>
+                </select>
+                <label for="driverid">Assign a Driver (Leave blank if reject):</label>
+                <select type="text" name="driverid" id="driverid" class="form-input" >
+                  <option value="">Choose an option</option>
+                  {% for x in driver%}
+                    <option value="{{x.driverID}}">{{x.fullName}}</option>
+                  {%endfor%}
+                </select>
+                <center><button type="submit" class="submit-button">Update</button></center>
+              </form>
+              <h2>Delete Bookings</h2>
+              <form method="POST" action="{% url 'admin_delete_booking' %}">
+                {% csrf_token %}
+
+                <label for="bookingID">Booking ID:</label>
+                <select type="text" name="bookingid" id="bookingid" class="form-input" required>
+                  <option value="">Choose an option</option>
+                  {%for x in booking%}
+                    <option value="{{x.bookingID}}">{{x.bookingID}}</option>
+                  {% endfor %}
+                </select>
+                <center><button type="delete" class="submit-button">Delete</button></center>
+              </form>
+            {%else%}
+              <p>{{notify}}</p>
+            {%endif%}
+        </div>
+    </div>
+  </div>
+{% endblock contentbox %}

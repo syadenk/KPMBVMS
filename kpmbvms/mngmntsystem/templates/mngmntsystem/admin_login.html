@@ -1,0 +1,57 @@
+{%extends "mngmntsystem/register.html"%}
+{% load static %}
+{%block header%}
+    <header>
+        <div class="container">
+            <div style="width: 10%;">
+                <img src="{% static 'images/logokpm.png' %}" alt="" class="image-size" style="margin: 10px; background-color:aliceblue;">
+            </div>
+            <div class="head-style" style=" width:80%;">
+                <h1 class="header-h1">KPMB VEHICLE MANAGEMENT ONLINE SYSTEM</h1>
+                <h2>Admin Page</h2>
+            </div>
+            <div style="width: 10%;">
+                <button class="button-login" style="padding: 10%; margin-top:30%;"><a href="{% url 'login'%}">User Login</a></button>
+            </div>
+    </header>
+{%endblock header%}
+{% block contentbox %}
+<style>
+    .rounded-box {
+        width: 300px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .centerize-box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* 100% of the viewport height */
+    }
+
+</style>
+
+<body>
+    <div class="centerize-box">
+        <div class="rounded-box">
+            
+            <h1>Admin Login</h1>
+            <div class="">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" class="form-input" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="form-input" required>
+
+                    <center><button type="submit" class="button-login" style="padding: 2%;">Login</button></center>
+                    <p class="error-message">{{ error_message }}</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock contentbox %}

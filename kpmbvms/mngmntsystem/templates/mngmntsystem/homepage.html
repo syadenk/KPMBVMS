@@ -1,0 +1,277 @@
+{% load static %}
+{%block css%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .header-h1 {
+        font-size: 2em;
+    }
+    .container {
+        display: flex;
+        width: 100%;
+        background-color: whitesmoke;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .image-size {
+        width: 100px;
+        height: 100px;
+    }
+    body{
+        background-color: brown;
+        margin: 0;   
+    }
+    .box-container{
+      width: 100%;
+    }
+    .row-box{
+        display: flex;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .form-input {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .invisible-box {
+      width: 33%;
+    }
+#container {
+    display: flex;
+  }
+  
+  .sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+  }
+  
+  .sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  .openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    margin-left: 0%;
+  }
+  
+  .openbtn:hover {
+    background-color: #444;
+  }
+  
+  #main {
+    flex-grow: 1;
+    padding: 20px;
+    transition: margin-right .5s; 
+  }
+  
+ 
+  @media screen and (max-height: 450px) {
+    .sidebar { padding-top: 15px; }
+    .sidebar a { font-size: 18px; }
+  }
+
+  .button-login {
+    font-size: 15px;
+    cursor: pointer;
+    background-color: #111;
+    color: rgb(255, 255, 255);
+    padding: 0px 10px;
+    border: none;
+    margin-top: 1.3%;
+    margin-bottom: 3.9%;
+  }
+  .button-login:hover {
+    font-size: 15px;
+    cursor: pointer;
+    background-color: rgb(236, 239, 209);
+    color: #111;
+    padding: 0px 10px;
+    border: none;
+    margin-top: 1.3%;
+    margin-bottom: 3.9%;
+  }
+  a:hover{
+    color: black;
+    text-decoration: none;
+  }
+  a{
+    color: whitesmoke;
+    text-decoration: none;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  /* Table Header Styles */
+  th, td {
+    border: 1px solid #333;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+</style>
+{%endblock css%}
+<body>
+{%block header%}
+    <header>
+        <div class="container">
+            <div style="width: 10%;">
+                <a href="{%url 'homepage'%}?username={{ request.session.username }}"><img src="{% static 'images/logokpm.png' %}" alt="" class="image-size" style="margin: 8px; background-color:aliceblue;"></a>
+            </div>
+            <div class="head-style" style="width:70%; margin-right:15%;">
+                <h1 class="header-h1">KPMB VEHICLE MANAGEMENT ONLINE SYSTEM</h1>
+            </div>
+            <div id="mySidebar" class="sidebar">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href="{%url 'booking'%}">Book</a>
+                <a href="{%url 'maintenance'%}">Maintenances</a>
+                <a href="{%url 'driver'%}">Drivers</a>
+                <a href="{%url 'vehicles'%}">Vehicles</a>
+              </div>
+
+              <div id="main" style="width:20%;">
+                <div style="display: flex;">
+                  <button class="button-login" style="margin-top:10%; margin-bottom:10%; padding: 7%; margin-right:5%;"><a href="{%url 'logout' %}"> Log Out</a></button>
+                  <button class="openbtn" onclick="openNav()" style="margin-top:10%; margin-bottom:10%; padding: 7%;">&#9776;</button>
+                </div>
+              </div>
+        </div>  
+    </header>
+{%endblock header%}
+
+{%block contentbox%}
+  <div class="container-box">
+    <div class="row-box" style="margin-top:10%; justify-content: left; margin:2%;">
+        <div class="invisible-box">
+          <h1>Profile</h1>
+          {% if user_credentials %}
+            <p>Username: {{ user_credentials.userName }}</p>
+            <p>Full Name: {{ user_credentials.fullName }}</p>
+            <p>Role: {{ user_credentials.role }}</p>
+            <p>Phone Number: {{ user_credentials.phoneNum }}</p>
+          {% else %}
+          <p style="color: red;">{{error}}</p>
+          <p>Sign-in or Register to access full-feature of this website</p>
+            <button class="button-login"style="padding: 2%;">
+              <a href="{% url 'login'%}" >Login</a>
+            </button>
+            <button class="button-login" style="margin-left: 1%; padding: 2%;">
+              <a href="{% url 'register'%}">Register</a>
+            </button>
+          {% endif %}
+        </div>
+    </div>
+  </div>
+  <div class="container-box">
+    <div class="row-box" style="margin-top:10%; justify-content: left; margin:2%;">
+        <div class="invisible-box">
+          <h1>Bookings</h1>
+          {%if booking_credentials%}
+            <table>
+              <thead>
+                <tr>
+                    <td>Booking ID</td>
+                    <td>Date of Booking</td>
+                    <td>Booking Reason</td>
+                    <td>Vehicle ID</td>
+                    <td>DriverID</td>
+                    <td>Status</td>
+                    <td>Option</td>
+                </tr>
+              </thead>
+              <tbody>
+                {%for x in booking_credentials%}
+                  <tr>
+                    <td>{{x.bookingID}}</td>
+                    <td>{{x.bookingDate}}</td>
+                    <td>{{x.purpose}}</td>
+                    <td>{{x.vehicleID_id}}</td>
+                    <td>{{x.driverID_id}}</td>
+                    <td>{{x.bookingStatus}}</td>
+                    <td>
+                      <a href="update/{{x.bookingID}}"><button class="button-login">Update</button></a>
+                      <a href="delete_booking_data/{{x.bookingID}}"><button class="button-login">Delete</button></a>
+                    </td>
+                  </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          {%else%}
+            <p>You don't have any bookings yet.</p>
+            <button class="button-login" style="padding: 2%;"> <a href="{%url 'booking'%}">Book Now</a></button>
+          {%endif%}
+        </div>
+    </div>
+  </div>
+    
+{% endblock contentbox %}
+    
+    
+</body>
+<script>
+function openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("main").style.marginRight = "250px";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginRight = "0";
+  }
+  
+  
+</script>
+</html>

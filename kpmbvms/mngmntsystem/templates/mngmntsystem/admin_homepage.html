@@ -1,0 +1,68 @@
+{%extends "mngmntsystem/admin_login.html"%}
+{% load static %}
+{%block header%}
+    <header>
+        <div class="container">
+            <div style="width: 10%;">
+                <img src="{% static 'images/logokpm.png' %}" alt="" class="image-size" style="margin: 10px; background-color:aliceblue;">
+            </div>
+            <div class="head-style" style=" width:80%;">
+                <h1 class="header-h1">KPMB VEHICLE MANAGEMENT ONLINE SYSTEM</h1>
+                <h2>Admin Page</h2>
+            </div>
+            <div style="width: 10%;">
+                <button class="button-login" style="padding: 10%; margin-top:30%;"><a href="{% url 'admin_login'%}">Logout</a></button>
+            </div>
+    </header>
+{%endblock header%}
+{%block contentbox%}
+  <div class="container-box">
+    <div class="row-box" style="margin-top:10%; justify-content: left; margin:2%;">
+        <div class="invisible-box">
+          <h1>Configure Database</h1>
+        </div>
+    </div>
+  </div>
+  <div style="border-radius: 15px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; background-color: #f0f0f0; margin:2%;">
+    <div style="margin-top:10%; justify-content: left; margin:2%; display: flex;">
+        <div class="invisible-box" style="width:50%; margin-right:25%;">
+          <h1>User Bookings</h1>
+          <button class="button-login" style="padding: 1%; margin-top:1%;"><a href="{%url 'admin_booking'%}">Go to page</a></button>
+        </div>
+        <div class="invisible-box" style="width:50%;">
+          <h1>Manage Drivers</h1>
+          <button class="button-login" style="padding: 1%; margin-top:1%;"><a href="{%url 'admin_driver'%}">Go to page</a></button>
+        </div>
+        <div class="invisible-box" style="width:50%;">
+        </div>
+    </div>
+    <div style="margin-top:10%; justify-content: left; margin:2%; display: flex;">
+      <div class="invisible-box" style="width:50%;">
+        <h1>Manage Vehicles</h1>
+        <button class="button-login" style="padding: 1%; margin-top:1%;"><a href="{%url 'admin_vehicle'%}">Go to page</a></button>
+      </div>
+      <div class="invisible-box" style="width:50%;">
+        <h1>Maintenance Vehicles</h1>
+        <button class="button-login" style="padding: 1%; margin-top:1%;"><a href="{%url 'admin_maintenance'%}">Go to page</a></button>
+      </div>
+    </div>
+  </div>
+    
+{% endblock contentbox %}
+    
+    
+</body>
+<script>
+function openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("main").style.marginRight = "250px";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginRight = "0";
+  }
+  
+  
+</script>
+</html>

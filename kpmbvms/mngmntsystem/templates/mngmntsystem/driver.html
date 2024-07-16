@@ -1,0 +1,29 @@
+{%extends "mngmntsystem/maintenance.html"%}
+{%block contentbox%}
+  <div class="container-box">
+    <div class="row-box" style="margin-top:10%; justify-content: left; margin:2%;">
+        <div class="invisible-box" style="width:100%;">
+            <h1>Drivers</h1>
+            <p>All possible drivers that may assigned to your bookings are listed here. Contact with drivers for more enquiry.</p>
+            <table>
+              <thead>
+                <tr>
+                  <td>Driver ID</td>
+                  <td>Full Name</td>
+                  <td>Phone Number</td>
+                </tr>
+              </thead>
+              <tbody>
+                {%for x in driver%}
+                  <tr>
+                    <td>{{x.driverID}}</td>
+                    <td>{{x.fullName}}</td>
+                    <td>{{x.phoneNum}}</td>
+                  </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+{% endblock contentbox %}

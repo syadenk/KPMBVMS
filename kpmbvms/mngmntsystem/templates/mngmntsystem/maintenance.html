@@ -1,0 +1,33 @@
+{%extends "mngmntsystem/booking.html"%}
+{%block contentbox%}
+  <div class="container-box">
+    <div class="row-box" style="margin-top:10%; justify-content: left; margin:2%;">
+        <div class="invisible-box" style="width:100%;">
+            <h1>Maintenance Vehicles</h1>
+            <p>All vehicles included in this is under maintanence and cannot be booked. Please take note. If any issue persist, please contact Admin.</p>
+            <table>
+              <thead>
+                <tr>
+                  <td>Maintenance ID</td>
+                  <td>Vehicle under maintenance</td>
+                  <td>Date maintenance</td>
+                  <td>Available Date</td>
+                  <td>Maintenance reasons</td>
+                </tr>
+              </thead>
+              <tbody>
+                {%for x in maintenance%}
+                  <tr>
+                    <td>{{x.maintenanceID}}</td>
+                    <td>{{x.vehicleID_id}}</td>
+                    <td>{{x.maintenanceDate}}</td>
+                    <td>{{x.availableDate}}</td>
+                    <td>{{x.maintenanceReason}}</td>
+                  </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+{% endblock contentbox %}

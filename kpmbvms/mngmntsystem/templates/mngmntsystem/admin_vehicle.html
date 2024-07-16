@@ -1,0 +1,118 @@
+{%extends "mngmntsystem/admin_driver.html"%}
+{% load static %}
+{%block contentbox%}
+  <div class="container-box">
+    <div class="row-box" style="margin-top:10%; justify-content: left; margin:2%;">
+        <div class="invisible-box" style="width:100%;">
+          <h1>Manage Vehicles</h1>
+          {%if vehicle%}
+            <table>
+              <thead>
+                <tr>
+                  <td>Vehicle ID</td>
+                  <td>Vehicle Type</td>
+                  <td>Brand</td>
+                  <td>Total Capacity</td>
+                  <td>Registered Plate Number</td>
+                </tr>
+              </thead>
+              <tbody>
+                {%for x in vehicle%}
+                  <tr>
+                    <td>{{x.vehicleID}}</td>
+                    <td>{{x.vehicleType}}</td>
+                    <td>{{x.brand}}</td>
+                    <td>{{x.capacity}}</td>
+                    <td>{{x.plateNum}}</td>
+                  </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+            <h2>Add Vehicles</h2>
+            <form method="POST" action="">
+              {% csrf_token %}
+
+              <label for="driverID">Vehicle ID:</label>
+              <input type="text" name="vehicleid" id="vehicleid" class="form-input" value="{{new_string}}" readonly>
+
+              <label for="vehicletype">Vehicle Type::</label>
+              <select type="text" name="vehicletype" id="vehicletype" class="form-input" required >
+                <option value="">Select an option</option>
+                <option value="Bus">Bus</option>
+                <option value="Van">Van</option>
+              </select>
+              <label for="brand">Brand:</label>
+              <input type="text" name="brand" id="brand" class="form-input" required />
+
+              <label for="capacity">Capacity:</label>
+              <input type="number" name="capacity" id="capacity" class="form-input" required />
+
+              <label for="platenum">Plate Number:</label>
+              <input type="text" name="platenum" id="platenum" class="form-input" required />
+
+              <center><button type="submit" class="submit-button">Add</button></center>
+            </form>
+            <h2>Update Vehicles</h2>
+            <form method="POST" action="{%url 'admin_vehicle_update'%}">
+              {% csrf_token %}
+
+              <label for="driverID">Vehicle Brand:</label>
+              <select type="text" name="vehicleid" id="vehicleid" class="form-input">
+                <option value="">Select an option</option>
+                {%for x in vehicle%}
+                  <option value="{{x.vehicleID}}">{{x.brand}}</option>
+                {%endfor%}
+              </select>
+
+              <label for="capacity">Capacity:</label>
+              <input type="number" name="capacity" id="capacity" class="form-input" required />
+
+              <label for="platenum">Plate Number:</label>
+              <input type="text" name="platenum" id="platenum" class="form-input" required />
+
+              <center><button type="submit" class="submit-button">Update</button></center>
+            </form>
+
+            <h2>Remove Vehicle</h2>
+            <form method="POST" action="{%url 'admin_vehicle_delete'%}">
+              {% csrf_token %}
+              <label for="vehicleid">Vehicle Brand:</label>
+              <select type="text" name="vehicleid" id="vehicleid" class="form-input">
+                <option value="">Select an option</option>
+                {%for x in vehicle%}
+                  <option value="{{x.vehicleID}}">{{x.brand}}</option>
+                {%endfor%}
+              </select>
+              <center><button type="submit" class="submit-button">Delete</button></center>
+            </form>
+          {%else%}
+            <p>There is no current drivers. Add now</p>
+            <h2>Add Driver</h2>
+            <form method="POST" action="">
+                {% csrf_token %}
+  
+                <label for="vehicleid">Vehicle ID:</label>
+                <input type="text" name="vehicleid" id="vehicleid" class="form-input" value="{{new_string}}" readonly>
+  
+                <label for="vehicletype">Vehicle Type::</label>
+                <select type="text" name="vehicletype" id="vehicletype" class="form-input" required >
+                  <option value="">Select an option</option>
+                  <option value="Bus">Bus</option>
+                  <option value="Van">Van</option>
+                </select>
+                <label for="brand">Brand:</label>
+                <input type="text" name="brand" id="brand" class="form-input" required />
+  
+                <label for="capacity">Capacity:</label>
+                <input type="number" name="capacity" id="capacity" class="form-input" required />
+  
+                <label for="platenum">Plate Number:</label>
+                <input type="text" name="platenum" id="platenum" class="form-input" required />
+  
+                <center><button type="submit" class="submit-button">Update</button></center>
+            </form>
+          {%endif%}
+        </div>
+    </div>
+  </div>
+{% endblock contentbox %}

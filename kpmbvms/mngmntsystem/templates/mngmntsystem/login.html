@@ -1,0 +1,67 @@
+{%extends "mngmntsystem/register.html"%}
+{% load static %}
+{%block header%}
+    <header>
+        <div class="container">
+            <div>
+                <img src="{% static 'images/logokpm.png' %}" alt="" class="image-size" style="margin: 10px; background-color:aliceblue;">
+            </div>
+            <div class="head-style" style="margin-right: 30%;">
+                <h1 class="header-h1">KPMB VEHICLE MANAGEMENT ONLINE SYSTEM</h1>
+            </div>
+            <div id="mySidebar" class="sidebar">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href="{%url 'admin_login'%}">Admin</a>
+              </div>
+              
+              <div id="main" style="width:20%;">
+                <div style="display: flex;">
+                  <button class="button-login" style="margin-top:10%; margin-bottom:10%; padding: 7%; margin-right:5%;"><a href="{%url 'register' %}"> Register </a></button>
+                  <button class="openbtn" onclick="openNav()" style="margin-top:10%; margin-bottom:10%; padding: 7%;">&#9776;</button>
+                </div>
+              </div>
+        </div>  
+    </header>
+{%endblock header%}
+{% block contentbox %}
+<style>
+    .rounded-box {
+        width: 300px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .centerize-box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* 100% of the viewport height */
+    }
+
+</style>
+
+<body>
+    <div class="centerize-box">
+        <div class="rounded-box">
+            
+            <h1>Login</h1>
+            <div class="">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" class="form-input" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="form-input" required>
+
+                    <center><button type="submit" class="button-login" style="padding: 2%;">Login</button></center>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock contentbox %}
+    
+    
+

@@ -1,0 +1,79 @@
+{%extends "mngmntsystem/register.html"%}
+{% load static %}
+{%block header%}
+    <header>
+        <div class="container">
+            <div style="width: 10%;">
+                <a href="{%url 'homepage'%}?username={{ request.session.username }}"><img src="{% static 'images/logokpm.png' %}" alt="" class="image-size" style="margin: 8px; background-color:aliceblue;"></a>
+            </div>
+            <div class="head-style" style="width:70%; margin-right:15%;">
+                <h1 class="header-h1">KPMB VEHICLE MANAGEMENT ONLINE SYSTEM</h1>
+            </div>
+            <div id="mySidebar" class="sidebar">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href="{%url 'booking'%}">Book</a>
+                <a href="{%url 'maintenance'%}">Maintenances</a>
+                <a href="{%url 'driver'%}">Drivers</a>
+                <a href="{%url 'vehicles'%}">Vehicles</a>
+              </div>
+
+              <div id="main" style="width:20%;">
+                <div style="display: flex;">
+                  <button class="button-login" style="margin-top:10%; margin-bottom:10%; padding: 7%; margin-right:5%;"><a href="{%url 'homepage'%}?username={{ request.session.username }}"> Back</a></button>
+                  <button class="openbtn" onclick="openNav()" style="margin-top:10%; margin-bottom:10%; padding: 7%;">&#9776;</button>
+                </div>
+              </div>
+        </div>  
+    </header>
+{%endblock header%}
+{%block contentbox%}
+  <div class="container-box">
+    <div class="row-box" style="margin-top:10%; justify-content: left; margin:2%;">
+        <div class="invisible-box" style="width:100%;">
+            <h1>Vehicle Booking</h1>
+            <h2>Available Vehicles</h2>
+            <table>
+              <thead>
+                <tr>
+                  <td>Vehicle ID</td>
+                  <td>Type of Vehicle</td>
+                  <td>Brand</td>
+                  <td>Total capacity</td>
+                  <td>Plate Number</td>
+                </tr>
+              </thead>
+              <tbody>
+                {%for x in available_vehicles%}
+                  <tr>
+                    <td>{{x.vehicleID}}</td>
+                    <td>{{x.vehicleType}}</td>
+                    <td>{{x.brand}}</td>
+                    <td>{{x.capacity}}</td>
+                    <td>{{x.plateNum}}</td>
+                  </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+            <h2>Choose your vehicles</h2>
+            <form method="POST" action="">
+              {% csrf_token %}
+
+              <label for="vehicleid">Choose your vehicle ID:</label>
+              <select type="text" name="vehicleid" id="vehicleid" class="form-input">
+                {%for x in available_vehicles%}
+                  <option value="{{x.vehicleID}}">{{x.vehicleID}}</option>
+                {% endfor %}
+              </select>
+
+              <label for="bookingdate">Booking Date::</label>
+              <input type="date" name="bookingdate" id="bookingdate" class="form-input" />
+
+              <label for="purpose">Purpose:</label>
+              <input type="text" name="purpose" id="purpose" class="form-input" />
+
+              <center><button type="submit" class="submit-button">Book</button></center>
+          </form>
+        </div>
+    </div>
+  </div>   
+{% endblock contentbox %}

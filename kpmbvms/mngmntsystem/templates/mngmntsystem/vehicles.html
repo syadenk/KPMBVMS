@@ -1,0 +1,24 @@
+{%extends "mngmntsystem/maintenance.html"%}
+{%block contentbox%}
+  <div class="container-box">
+    <div class="row-box" style="margin-top:10%; justify-content: left; margin:2%;">
+        <div class="invisible-box" style="width:100%;">
+            <h1>Search Vehicles</h1>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="text" name="brand" class="form-input">
+                <center><button type="submit" class="button-login" style="padding: 1%;">Search</button></center>
+            </form>
+            {%if vehicle%}
+                {%for x in vehicle%}
+                    <h2>Vehicle ID:{{x.vehicleID}}</h2>
+                    <h2>Vehicle Type:{{x.vehicleType}}</h2>
+                    <h2>Brand:{{x.brand}}</h2>
+                    <h2>Capacity:{{x.capacity}}</h2>
+                    <h2>Plate Number:{{x.plateNum}}</h2>
+                {%endfor%}
+            {%endif%}    
+        </div>
+    </div>
+  </div>
+{% endblock contentbox %}

@@ -1,0 +1,73 @@
+{%extends "mngmntsystem/admin_maintenance.html"%}
+{% load static %}
+{%block header%}
+    <header>
+        <div class="container">
+            <div style="width: 10%;">
+                <img src="{% static 'images/logokpm.png' %}" alt="" class="image-size" style="margin: 10px; background-color:aliceblue;">
+            </div>
+            <div class="head-style" style=" width:80%;">
+                <h1 class="header-h1">KPMB VEHICLE MANAGEMENT ONLINE SYSTEM</h1>
+                <h2>Admin Page</h2>
+            </div>
+            <div style="width: 10%;">
+                <button class="button-login" style="margin-top:10%; margin-bottom:10%; padding: 7%; margin-right:5%;"><a href="{%url 'homepage'%}?username={{ request.session.username }}"> Back</a></button>
+            </div>
+    </header>
+{%endblock header%}
+{% block contentbox %}
+<style>
+    .rounded-box {
+        width: 300px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .centerize-box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .submit-button:hover {
+        border-color: black;
+        background-color: white;
+    }
+    .submit-button {
+        border-color: white;
+        background-color: rgb(165, 164, 164);
+        color: rgb(20, 20, 20);
+    }
+</style>
+<body>
+    <div class="centerize-box">
+        <div class="rounded-box">
+            
+            <h1>Update Booking Information</h1>
+            <div class="">
+                <form method="POST" action="update_booking_data/{{updateBooking.bookingID}}">
+                    {% csrf_token %}
+                    <label for="bookingid">Booking ID:</label>
+                    <input type="text" id="bookingid" name="bookingid" class="form-input" value="{{updateBooking.bookingID}}"  readonly >
+
+                    <label for="password">Date of booking:</label>
+                    <input type="date" id="bookingdate" name="bookingdate" class="form-input" required>
+
+                    <label for="reason">Booking Reason:</label>
+                    <input type="text" id="reason" name="reason" class="form-input" value="{{updateBooking.purpose}}" required>
+
+                    <label for="vehicleID">Vehicle ID:</label>
+                    <select type="text" id="vehicleID" name="vehicleID" class="form-input" placeholder="{{updateBooking.vehicleID_id}}" >
+                    {%for x in vehicles%}
+                        <option value="{{x.vehicleID}}">{{x.vehicleID}}</option>
+                    {%endfor%}
+                    </select>
+
+                    <center><button type="submit" class="button-login" style="padding: 2%;">Update</button></center>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock contentbox %}

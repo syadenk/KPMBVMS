@@ -1,0 +1,75 @@
+{%extends "mngmntsystem/admin_booking.html"%}
+{% load static %}
+{%block contentbox%}
+  <div class="container-box">
+    <div class="row-box" style="margin-top:10%; justify-content: left; margin:2%;">
+        <div class="invisible-box" style="width:100%;">
+          <h1>Configure Driver</h1>
+          {%if driver%}
+            <table>
+              <thead>
+                <tr>
+                  <td>Driver ID</td>
+                  <td>Full Name</td>
+                  <td>Phone Number</td>
+                </tr>
+              </thead>
+              <tbody>
+                {%for x in driver%}
+                  <tr>
+                    <td>{{x.driverID}}</td>
+                    <td>{{x.fullName}}</td>
+                    <td>{{x.phoneNum}}</td>
+                  </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+            <h2>Add Driver</h2>
+            <form method="POST" action="">
+              {% csrf_token %}
+
+              <label for="driverID">Driver ID:</label>
+              <input type="text" name="driverid" id="driverid" class="form-input" value="{{new_string}}" readonly>
+
+              <label for="fullname">Full Name:</label>
+              <input type="text" name="fullname" id="fullname" class="form-input" required />
+
+              <label for="phonenum">Phone Number:</label>
+              <input type="text" name="phonenum" id="phonenum" class="form-input" required />
+
+              <center><button type="submit" class="submit-button">Update</button></center>
+            </form>
+            <h2>Remove Driver</h2>
+            <form method="POST" action="{%url 'admin_driver_delete'%}">
+              {% csrf_token %}
+              <label for="driverID">Driver ID:</label>
+              <select type="text" name="driverid" id="driverid" class="form-input">
+                <option value="">Select an option</option>
+                {%for x in driver%}
+                  <option value="{{x.driverID}}">{{x.fullName}}</option>
+                {%endfor%}
+              </select>
+              <center><button type="submit" class="submit-button">Delete</button></center>
+            </form>
+          {%else%}
+            <p>There is no current drivers. Add now</p>
+            <h2>Add Driver</h2>
+            <form method="POST" action="">
+              {% csrf_token %}
+
+              <label for="driverID">Driver ID:</label>
+              <input type="text" name="driverid" id="driverid" class="form-input" value="{{new_string}}" readonly>
+
+              <label for="fullname">Full Name:</label>
+              <input type="text" name="fullname" id="fullname" class="form-input" required />
+
+              <label for="phonenum">Phone Number:</label>
+              <input type="text" name="phonenum" id="phonenum" class="form-input" required />
+
+              <center><button type="submit" class="submit-button">Update</button></center>
+            </form>
+          {%endif%}
+        </div>
+    </div>
+  </div>
+{% endblock contentbox %}

@@ -1,0 +1,122 @@
+{%extends "mngmntsystem/admin_vehicle.html"%}
+{% load static %}
+{%block contentbox%}
+  <div class="container-box">
+    <div class="row-box" style="margin-top:10%; justify-content: left; margin:2%;">
+        <div class="invisible-box" style="width:100%;">
+          <h1>Manage Vehicles</h1>
+          {%if maintenance%}
+            <table>
+              <thead>
+                <tr>
+                  <td>Maintenance ID</td>
+                  <td>Vehicle ID</td>
+                  <td>Maintenance Date</td>
+                  <td>Available Date</td>
+                  <td>Maintenance Reason</td>
+                </tr>
+              </thead>
+              <tbody>
+                {%for x in maintenance%}
+                  <tr>
+                    <td>{{x.maintenanceID}}</td>
+                    <td>{{x.vehicleID_id}}</td>
+                    <td>{{x.maintenanceDate}}</td>
+                    <td>{{x.availableDate}}</td>
+                    <td>{{x.maintenanceReason}}</td>
+                  </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+            <table>
+                <thead>
+                  <tr>
+                    <td>Vehicle ID</td>
+                    <td>Vehicle Type</td>
+                    <td>Brand</td>
+                    <td>Total Capacity</td>
+                    <td>Registered Plate Number</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {%for x in vehicle%}
+                    <tr>
+                      <td>{{x.vehicleID}}</td>
+                      <td>{{x.vehicleType}}</td>
+                      <td>{{x.brand}}</td>
+                      <td>{{x.capacity}}</td>
+                      <td>{{x.plateNum}}</td>
+                    </tr>
+                  {%endfor%}
+                </tbody>
+              </table>
+            <h2>Add Vehicles for Maintenance</h2>
+            <form method="POST" action="">
+              {% csrf_token %}
+
+              <label for="maintenanceid">Maintenance ID:</label>
+              <input type="text" name="maintenanceid" id="maintenanceid" class="form-input" value="{{new_string}}" readonly>
+
+              <label for="vehicleid">VehicleID:</label>
+              <select type="text" name="vehicleid" id="vehicleid" class="form-input" required >
+                <option value="">Select an option</option>
+                {%for x in vehicle%}
+                    <option value="{{x.vehicleID}}">{{x.vehicleID}}</option>
+                {%endfor%}
+              </select>
+              <label for="maintenancedate"> Maintenance Date:</label>
+              <input type="date" name="maintenancedate" id="maintenancedate" class="form-input" required />
+
+              <label for="availabledate">Available Date:</label>
+              <input type="date" name="availabledate" id="availabledate" class="form-input" required />
+
+              <label for="maintenancereason">Maintenance Reason:</label>
+              <input type="text" name="maintenancereason" id="maintenancereason" class="form-input" required />
+
+              <center><button type="submit" class="submit-button">Update</button></center>
+            </form>
+
+            <h2>Manually Remove Vehicle from Maintenance</h2>
+            <form method="POST" action="{%url 'admin_maintenance_delete'%}">
+              {% csrf_token %}
+              <label for="maintenanceid">Maintenance ID:</label>
+              <select type="text" name="maintenanceid" id="maintenanceid" class="form-input">
+                <option value="">Select an option</option>
+                {%for x in maintenance%}
+                  <option value="{{x.maintenanceID}}">{{x.maintenanceID}}</option>
+                {%endfor%}
+              </select>
+              <center><button type="submit" class="submit-button">Delete</button></center>
+            </form>
+          {%else%}
+            <p>There is no current maintenances. Add now</p>
+            <h2>Add Vehicles for Maintenance</h2>
+            <form method="POST" action="">
+                {% csrf_token %}
+  
+                <label for="maintenanceid">Maintenance ID:</label>
+                <input type="text" name="maintenanceid" id="maintenanceid" class="form-input" value="{{new_string}}" readonly>
+  
+                <label for="vehicleid">VehicleID:</label>
+                <select type="text" name="vehicleid" id="vehicleid" class="form-input" required >
+                  <option value="">Select an option</option>
+                  {%for x in vehicle%}
+                      <option value="{{x.vehicleID}}">{{x.vehicleID}}</option>
+                  {%endfor%}
+                </select>
+                <label for="maintenancedate"> Maintenance Date:</label>
+                <input type="date" name="maintenancedate" id="maintenancedate" class="form-input" required />
+  
+                <label for="availabledate">Available Date:</label>
+                <input type="date" name="availabledate" id="availabledate" class="form-input" required />
+  
+                <label for="maintenancereason">Maintenance Reason:</label>
+                <input type="text" name="maintenancereason" id="maintenancereason" class="form-input" required />
+  
+                <center><button type="submit" class="submit-button">Update</button></center>
+              </form>
+          {%endif%}
+        </div>
+    </div>
+  </div>
+{% endblock contentbox %}
